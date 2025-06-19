@@ -209,7 +209,7 @@ const Main = () => {
         <h2 className="text-3xl font-semibold text-primary mb-3">
           Jump into featured interests
         </h2>
-        <ul className="list-none grid grid-cols-2 md:grid-cols-none  md:flex md:flex-row gap-2 ">
+        <ul className="list-none grid grid-cols-2 md:grid-cols-4   gap-2 ">
           {products.slice(0, 8).map((item, index) => (
             <li key={item.id || index}>
               <div>
