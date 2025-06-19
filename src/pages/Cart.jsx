@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { ShieldCheck, Tag, MessageSquare, Plus } from 'lucide-react';
 import axios from "axios";
 import { FaHandsHelping } from "react-icons/fa";
+import { MdHandshake } from "react-icons/md";
 import { FaHeart } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
+import { PiLeafFill } from "react-icons/pi";
+import { MdDiscount } from "react-icons/md";
 const Cart = () => {
     const [cartItems, setCartItems] = useState([]);
     const [subtotal, setSubtotal] = useState(0);
@@ -105,7 +108,7 @@ const Cart = () => {
 
             {/* Purchase Protection Banner */}
             <div className="flex items-center  p-3 rounded-lg ">
-                <FaHandsHelping className="w-7 h-7 mr-3 flex-shrink-0 to-blue-600" />
+                <MdHandshake className="w-7 h-7 mr-3 flex-shrink-0 text-blue-600" />
                 <p className="text-xl">
                     Buy confidently with Etsy’s Purchase Protection program.{" "}
                     <a href="#" className="underline font-medium">See eligibility</a>
@@ -205,85 +208,76 @@ const Cart = () => {
                                                 Sale ends in {item.saleEnds}
                                             </div>
                                         )}
+                                        <div className="mt-3 flex flex-wrap items-center gap-4">
 
-
-                                        {/* Quantity Dropdown and Actions */}
-                                        <div className="mt-3 flex flex-wrap items-center gap-4"> {/* Added flex and gap */}
-                                            {/* Quantity Dropdown */}
                                             <select
-                                                value={item.quantity || 1} // Use item's quantity
+                                                value={item.quantity || 1}
                                                 onChange={(e) => handleQuantityChange(item.id, e.target.value)}
                                                 className="form-select border border-gray-300 rounded-md text-sm py-1 px-2" // Styled select
                                             >
-                                                {/* Options 1 to 10, or more if needed */}
                                                 {Array.from({ length: 10 }, (_, i) => i + 1).map(qty => (
                                                     <option key={qty} value={qty}>{qty}</option>
                                                 ))}
                                             </select>
-
-
-                                            {/* Actions */}
-                                            <div className="text-sm text-gray-600 flex gap-4"> {/* Moved actions here */}
+                                            <div className="text-sm text-gray-600 flex gap-4">
                                                 <button onClick={() => handleSaveForLater(item.id)} className="hover:underline">Save for later</button>
                                                 <span>·</span>
                                                 <button onClick={() => handleRemoveItem(item.id)} className="hover:underline">Remove</button>
                                             </div>
-                                        </div> {/* End Quantity and Actions flex */}
+                                        </div>
 
-                                    </div> {/* End Item Details flex-grow */}
-                                </div> {/* End Item Content flex */}
-                            </div> // End Item Bordered Block
+                                    </div>
+                                </div>
+                            </div>
                         ))}
                     </div>
 
                     {/* Right Column - Order Summary */}
-                    <div className="lg:col-span-1">
-                        <div className="bg-white rounded-xl shadow-md p-6 space-y-4">
-                            <h3 className="text-lg font-semibold text-gray-800">How you’ll pay</h3>
-                            <div className="flex flex-wrap items-center gap-2">
-                             <img src="https://img.icons8.com/color/48/visa.png" alt="Visa" />
-<img src="https://img.icons8.com/color/48/mastercard.png" alt="Mastercard" />
-<img src="https://img.icons8.com/color/48/amex.png" alt="Amex" />
-<img src="https://img.icons8.com/color/48/diners-club.png" alt="Diners Club" />
-                            </div>
-                            <p className="text-xs text-gray-600">
-                                PayPal is not available for all shops in your cart.
-                            </p>
+                  <div className="bg-white rounded-xl shadow-md p-6 space-y-4 w-full max-w-md">
+  <h3 className="text-lg font-semibold text-gray-800 mb-2">How you'll pay</h3>
+  <div className="space-y-2">
+    <label className="flex items-center gap-2 cursor-pointer">
+      <input type="radio" name="payment" className="accent-black" defaultChecked />
+      <div className="flex gap-1">
+        <img src="https://img.icons8.com/color/48/visa.png" alt="Visa" className="h-10 w-10" />
+        <img src="https://img.icons8.com/color/48/mastercard.png" alt="Mastercard" className="h-10 w-10" />
+        <img src="https://img.icons8.com/color/48/amex.png" alt="Amex" className="h-10 w-10" />
+        <img src="https://img.icons8.com/color/48/diners-club.png" alt="Diners Club" className="h-10 w-10" />
+      </div>
+    </label>
+    <label className="flex items-center gap-2 cursor-pointer">
+      <input type="radio" name="payment" className="accent-black" />
+      <img src="https://img.icons8.com/color/48/paypal.png" alt="PayPal" className="h-6" />
+      <span>PayPal</span>
+    </label>
+    <label className="flex items-center gap-2 cursor-pointer">
+      <input type="radio" name="payment" className="accent-black" />
+      <img src="https://img.icons8.com/color/48/google-pay.png" alt="GPay" className="h-6" />
+      <span>G Pay</span>
+    </label>
+  </div>
 
-                            <div className="border-t border-gray-200 pt-4">
-                                <div className="flex  justify-between text-sm text-gray-700 mb-2">
-                                    <span>Item(s) total</span>
-                                    <span>USD {itemsTotal.toFixed(2)}</span>
-                                </div>
-                                {shopDiscount > 0 && (
-                                    <div className="flex justify-between text-sm text-green-700 mb-2">
-                                        <span>Shop discount</span>
-                                        <span>-USD {shopDiscount.toFixed(2)}</span>
-                                    </div>
-                                )}
-                                <div className="flex justify-between font-semibold text-base text-gray-800 pt-2">
-                                    <span>Subtotal</span>
-                                    <span>USD {finalSubtotal.toFixed(2)}</span>
-                                </div>
-                            </div>
+  <div className="flex justify-between items-center mt-4 text-base">
+    <span className="font-medium">Item(s) total</span>
+    <span className="font-semibold">USD {itemsTotal.toFixed(2)}</span>
+  </div>
 
-                            <button className="w-full bg-black text-white py-3 rounded-full font-semibold hover:bg-gray-800 transition">
-                                Proceed to checkout
-                            </button>
+  <button className="w-full bg-black text-white py-3 rounded-full font-semibold text-base mt-2 hover:bg-gray-800 transition">
+    Proceed to checkout
+  </button>
 
-                            <div className="border-t border-gray-200 pt-4">
-                                <button className="flex items-center text-gray-700 hover:text-gray-900">
-                                    <Tag className="w-5 h-5 mr-2" />
-                                    Apply coupon code
-                                </button>
-                            </div>
+  <div className="flex items-center mt-4 cursor-pointer">
 
-                            <p className="text-xs text-gray-500">
-                                Local taxes included (where applicable).<br />
-                                * Additional fees may apply.
-                            </p>
-                        </div>
-                    </div>
+    <MdDiscount className="w-5 h-5 text-green-600 mr-2" />
+    <span className="text-green-700 font-medium">Apply coupon code</span>
+  </div>
+
+  <p className="text-xs text-gray-500 mt-2">
+    Local taxes included (where applicable).<br />
+    * Learn more about additional taxes, duties, and fees that may apply
+  </p>
+</div>
+<p className="flex items-center"><PiLeafFill className="mr-8"/>Etsy offsets carbon emissions from every delivery</p>
                     {similarItems.length > 0 && (
                         <div className="mt-16">
                             <h3 className="text-2xl font-semibold mb-4">Related items you may like</h3>
@@ -292,7 +286,7 @@ const Cart = () => {
                                 {similarItems.length > 0 && (
                                     <div>
                                         {/* Horizontal scroll container */}
-                                     <div className="flex flex-nowrap gap-6 overflow-x-auto">
+                                        <div className="flex flex-nowrap gap-6 overflow-x-auto">
                                             {similarItems.map((item) => (
                                                 <div
                                                     key={item.id}
@@ -306,12 +300,12 @@ const Cart = () => {
                                                             alt={item.name || "Product"}
                                                             className="w-full h-full object-cover"
                                                         />
-                                                          <span
-                                                                        onClick={() => handleAddToWishlist(product)}
-                                                                        className="absolute top-2 right-2 hidden group-hover:flex fade-slide-up items-center justify-center w-8 h-8 rounded-full bg-white cursor-pointer"
-                                                                      >
-                                                                        <FaHeart className="w-4 h-4 text-black" />
-                                                                      </span>
+                                                        <span
+                                                            onClick={() => handleAddToWishlist(product)}
+                                                            className="absolute top-2 right-2 hidden group-hover:flex fade-slide-up items-center justify-center w-8 h-8 rounded-full bg-white cursor-pointer"
+                                                        >
+                                                            <FaHeart className="w-4 h-4 text-black" />
+                                                        </span>
                                                     </div>
 
                                                     {/* Text Details */}
@@ -322,12 +316,12 @@ const Cart = () => {
                                                         <div className="flex items-center mb-1">
                                                             <p className="text-base text-gray-800 font-bold mr-2">USD {item.price?.toFixed(2) || '0.00'}</p> {/* Display current price */}
                                                             {/* Display old price and discount if available */}
-                                                            
+
                                                         </div>
-                                                      
-                                                            <span className="text-xs font-bold text-green-700">({item.discount}% off)</span>
-                                                        
-                                                  
+
+                                                        <span className="text-xs font-bold text-green-700">({item.discount}% off)</span>
+
+
 
 
                                                         {/* Add to Cart Button */}

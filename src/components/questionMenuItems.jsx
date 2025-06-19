@@ -40,7 +40,7 @@ const QuestionMenuItem = () => {
         {
             key: 'etsy-purchase-protection',
             label: 'Etsy Purchase Protection',
-            icon: <FaHandsHelping size={20} />,
+            icon:      <MdHandshake className="w-7 h-7 mr-3 flex-shrink-0 blue-600" />,
             className: 'px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer',
         },
         {

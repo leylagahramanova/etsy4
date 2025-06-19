@@ -179,7 +179,7 @@ const thumbnailPosition = isLargeScreen ? "left" : "bottom";
 
          
                     <div className="text-sm text-red-600 mb-4 flex ">
-                        Sale ends in  <Timer className="ml-2"/>
+                      <span className="mr-2">Sale ends in </span>    <Timer className="ml-2"/>
                     </div>
     
 
