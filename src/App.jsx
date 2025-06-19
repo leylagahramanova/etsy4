@@ -18,7 +18,7 @@ function App() {
   // Check login status on app load and when storage changes
   useEffect(() => {
     const checkLoginStatus = () => {
-    const storedLoggedIn = localStorage.getItem("isLoggedIn");
+      const storedLoggedIn = localStorage.getItem("isLoggedIn");
       const storedUser = localStorage.getItem("user");
       setIsLoggedIn(storedLoggedIn === "true" && storedUser !== null);
     };
@@ -56,26 +56,27 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <div className="App">
         <Navbar 
           isLoggedIn={isLoggedIn} 
           onSignIn={handleSignIn} 
           onSignOut={handleSignOut} 
         />
-    <div>
-      <Routes>
-        <Route path="/" element={<Main/>}/>
+        <div className="min-h-screen">
+          <Routes>
+            <Route path="/" element={<Main />} />
             <Route path="/category/:category/:subcategory" element={<CategoryPage />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/product/:productId" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/search" element={<SearchPage />} />
-      </Routes>
-    </div>
-        <Footer/>
+            <Route path="*" element={<Main />} />
+          </Routes>
+        </div>
+        <Footer />
         {showLoginModal && <Login onClose={handleLoginClose} />}
-    </div>
+      </div>
     </BrowserRouter>
   );
 }
